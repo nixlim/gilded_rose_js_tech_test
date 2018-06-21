@@ -12,7 +12,8 @@
     ]
   },
   "scripts": {
-    "test": "nyc jasmine"
+    "test": "nyc jasmine",
+    "cov_report": "nyc report --reporter=html"
   },
   "repository": {
     "type": "git",
