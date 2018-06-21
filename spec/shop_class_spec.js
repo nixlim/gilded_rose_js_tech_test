@@ -1,4 +1,4 @@
-var Shop = require('../src/gilded_rose')
+var Shop = require('../src/shop_class')
 
 describe ("Shop Class", function () {
   var gildedRose = new Shop()
@@ -90,7 +90,7 @@ describe ("Shop Class", function () {
   describe('Sulfuras, Hand of Ragnaros', function () {
     describe ('Sulfuras, Hand of Ragnaros - unexpired', function () {
       beforeEach(function () {
-        gildedRose.items.push({ name: 'Sulfuras, Hand of Ragnaros', sellIn: 1, quality: 49 })
+        gildedRose.items.push({ name: 'Sulfuras, Hand of Ragnaros', sellIn: 1, quality: 80 })
         gildedRose.updateQuality()
       })
       afterEach(function () {
@@ -98,12 +98,12 @@ describe ("Shop Class", function () {
       })
       it('should not change either the #sellIn or the #quality', function () {
         expect(gildedRose.items[0].sellIn).toEqual(1)
-        expect(gildedRose.items[0].quality).toEqual(49)
+        expect(gildedRose.items[0].quality).toEqual(80)
       })
     })
     describe ('Sulfuras, Hand of Ragnaros - expired', function () {
       beforeEach(function () {
-        gildedRose.items.push({ name: 'Sulfuras, Hand of Ragnaros', sellIn: -1, quality: 49 })
+        gildedRose.items.push({ name: 'Sulfuras, Hand of Ragnaros', sellIn: -1, quality: 80 })
         gildedRose.updateQuality()
       })
       afterEach(function () {
@@ -111,7 +111,7 @@ describe ("Shop Class", function () {
       })
       it('should not change either the #sellIn or the #quality', function () {
         expect(gildedRose.items[0].sellIn).toEqual(-1)
-        expect(gildedRose.items[0].quality).toEqual(49)
+        expect(gildedRose.items[0].quality).toEqual(80)
       })
     })
   })
