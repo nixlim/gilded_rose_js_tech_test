@@ -1,10 +1,8 @@
 var Shop = require('../src/shop_class')
+var Item = require('../src/item_class')
 
 describe ("Shop Class", function () {
   var gildedRose = new Shop()
-  //   // this conjured item does not work properly yet
-  //   gildedRose.items.push({ name: 'Conjured Mana Cake', sellIn: 3, quality: 6 })
-  // })
   describe ('Normal Items', function () {
     describe ('Normal Items - unexpired', function () {
       beforeEach(function () {
@@ -168,7 +166,8 @@ describe ("Shop Class", function () {
     })
     describe('Backstage passes after the concert', function () {
       beforeEach(function () {
-        gildedRose.items.push({ name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 0, quality: 20 })
+        var item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20)
+        gildedRose.items.push(item)
         gildedRose.updateQuality()
       })
       afterEach(function () {
@@ -182,4 +181,5 @@ describe ("Shop Class", function () {
       })
     })
   })
+
 })
