@@ -79,10 +79,19 @@ describe ("Shop Class", function () {
       gildedRose.updateQuality()
       expect(gildedRose.items[0].quality).toEqual(50)
     })
-    it('should never decrease the #quality of an item below 50', function () {
+    it('should never decrease the #quality of a normal item below 0', function () {
       gildedRose.items.push({ name: '+5 Dexterity Vest', sellIn: 10, quality: 0 })
+      gildedRose.items.push({ name: '+5 Dexterity Vest', sellIn: 0, quality: 0 })
       gildedRose.updateQuality()
       expect(gildedRose.items[0].quality).toEqual(0)
+      expect(gildedRose.items[1].quality).toEqual(0)
+    })
+    it('should never decrease the #quality of a conjured item below 0', function () {
+      gildedRose.items.push({ name: 'Conjured Hat of Dough', sellIn: 10, quality: 0 })
+      gildedRose.items.push({ name: 'Conjured Hat of Dough', sellIn: 0, quality: 0 })
+      gildedRose.updateQuality()
+      expect(gildedRose.items[0].quality).toEqual(0)
+      expect(gildedRose.items[1].quality).toEqual(0)
     })
   })
   describe('Sulfuras, Hand of Ragnaros', function () {
@@ -166,8 +175,7 @@ describe ("Shop Class", function () {
     })
     describe('Backstage passes after the concert', function () {
       beforeEach(function () {
-        var item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20)
-        gildedRose.items.push(item)
+        gildedRose.items.push({ name: 'Backstage passes to a TAFKAL80ETC concert', sellIn: 0, quality: 20 })
         gildedRose.updateQuality()
       })
       afterEach(function () {
@@ -181,5 +189,24 @@ describe ("Shop Class", function () {
       })
     })
   })
-
+  describe('conjured items', function () {
+    beforeEach(function () {
+      gildedRose.items.push({ name: 'Conjured Mana Cake', sellIn: 3, quality: 6 })
+      gildedRose.items.push({ name: 'Conjured Mana Cake', sellIn: 0, quality: 6 })
+      gildedRose.items.push({ name: 'Conjured Mana Cake', sellIn: 0, quality: 3 })
+      gildedRose.updateQuality()
+    })
+    afterEach(function () {
+      gildedRose.items = []
+    })
+    it('should decrease unexpired conjured item quality by 2', function () {
+      expect(gildedRose.items[0].quality).toEqual(4)
+    })
+    it('should decrease expired item quality by 4', function () {
+      expect(gildedRose.items[1].quality).toEqual(2)
+    })
+    it('should decrease expired item quality to 0 if it is 3 on expiration', function () {
+      expect(gildedRose.items[2].quality).toEqual(0)
+    })
+  })
 })

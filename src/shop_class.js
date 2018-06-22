@@ -1,6 +1,7 @@
 var agedBrie = require('./agedBrie_class')
 var backStagePasses = require('./backStagePasses_class')
 var normalGoods = require('./normalGoods_class')
+var conjuredItems = require('./conjuredItems_class')
 var Item = require('../src/item_class')
 
 class Shop {
@@ -13,7 +14,9 @@ class Shop {
         agedBrie(this.items[i])
       } else if (this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert') {
         backStagePasses(this.items[i])
-      } else if (this.items[i].name !== 'Sulfuras, Hand of Ragnaros') {
+      } else if (this.items[i].name.split(' ').includes('Conjured')) {
+        conjuredItems(this.items[i])
+      }else if (this.items[i].name !== 'Sulfuras, Hand of Ragnaros') {
         normalGoods(this.items[i])
       }
     }
